@@ -1,20 +1,12 @@
 package me.patrickfreed.mobfight;
-<<<<<<< HEAD
 
-=======
-import me.patrickfreed.mobfight.Commands.Addleader;
->>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 import me.patrickfreed.mobfight.Commands.Creategame;
 import me.patrickfreed.mobfight.Commands.Define;
 import me.patrickfreed.mobfight.Commands.Delete;
 import me.patrickfreed.mobfight.Commands.End;
 import me.patrickfreed.mobfight.Commands.Join;
 import me.patrickfreed.mobfight.Commands.Leave;
-<<<<<<< HEAD
 import me.patrickfreed.mobfight.Commands.List;
-=======
-import me.patrickfreed.mobfight.Commands.Removeleader;
->>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 import me.patrickfreed.mobfight.Commands.Removeplayer;
 import me.patrickfreed.mobfight.Commands.Setspawn;
 import me.patrickfreed.mobfight.Commands.Setwarp;
@@ -41,15 +33,6 @@ public class MobFightCommands implements CommandExecutor{
 			else if (args[0].equalsIgnoreCase("leave")){
 				return Leave.run(args, player);
 			}
-<<<<<<< HEAD
-=======
-			else if (args[0].equalsIgnoreCase("addleader")){
-				return Addleader.run(args, player);
-			}
-			else if(args[0].equalsIgnoreCase("removeleader")){
-				return Removeleader.run(args, player);
-			}
->>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 			else if(args[0].equalsIgnoreCase("join")){
 				return Join.run(args, player);
 			}
@@ -68,7 +51,6 @@ public class MobFightCommands implements CommandExecutor{
 			else if (args[0].equalsIgnoreCase("define")){
 				return Define.run(args, player);
 			}
-<<<<<<< HEAD
 			else if (args[0].equalsIgnoreCase("list")){
 				return List.run(args, player);
 			}
@@ -76,9 +58,3 @@ public class MobFightCommands implements CommandExecutor{
 		return false;
 	}
 }
-=======
-		}
-		return false;
-	}
-}
->>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a

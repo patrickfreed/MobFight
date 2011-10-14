@@ -1,6 +1,5 @@
 package me.patrickfreed.mobfight.Commands;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,18 +7,12 @@ import me.desmin88.mobdisguise.api.MobDisguiseAPI;
 import me.patrickfreed.mobfight.MobFightGame;
 import me.patrickfreed.mobfight.MobFightPlayer;
 import me.patrickfreed.mobfight.Util;
-=======
-import me.patrickfreed.mobfight.MobFightGame;
-import me.patrickfreed.mobfight.MobFightPlayer;
-import me.patrickfreed.mobfight.Utilities;
->>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 public class Join {
 	public static boolean run(String[]args, MobFightPlayer player){
-<<<<<<< HEAD
 		
 		Util util = new Util();
 		
@@ -81,25 +74,3 @@ public class Join {
 		return false;
 	}
 }
-=======
-		Utilities util = new Utilities();
-		if (args.length == 2){
-			if (player.hasPermission("mobfight.join")){
-				String gamestring = args[1];
-				MobFightGame game = new MobFightGame(gamestring);
-				if(game.exists()){
-					Location location = game.getWarpLocation();
-					player.getCraftPlayer().teleport(location);
-					player.sendMessage(ChatColor.YELLOW + "Pick a team to start playing!");
-					return true;
-				}else{
-					player.sendMessage(ChatColor.RED + "That game does not exist!");
-				}
-			}else{
-				player.sendMessage(util.noPermission());
-			}
-		}
-		return false;
-	}
-}
->>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
