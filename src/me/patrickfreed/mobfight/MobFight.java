@@ -8,6 +8,7 @@ import java.util.List;
 
 import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
 
+<<<<<<< HEAD
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,14 +17,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+=======
+import org.bukkit.event.Event.Priority;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.config.Configuration;
+>>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 import org.bukkit.event.*;
 
 public class MobFight extends JavaPlugin{
 
+<<<<<<< HEAD
 	public static YamlConfiguration config;
 	public boolean willDisable = false;
 	public static List<String> list;
 	public Util util = new Util();
+=======
+	public static Configuration config;
+	public boolean willDisable = false;
+	public static List<String> list;
+	public Utilities util = new Utilities();
+>>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 	@Override
 	public void onDisable() {
 		System.out.println("[" + this.getDescription().getName() + "] Disabled!");
@@ -31,16 +45,26 @@ public class MobFight extends JavaPlugin{
 
 	@Override
 	public void onEnable() {
+<<<<<<< HEAD
 		System.out.println("[" + this.getDescription().getName() + "] Enabled!");	
 		File conf = makeConfig(new File(getDataFolder(), "config.yml"));
 		if (conf.exists()) {
 			config = YamlConfiguration.loadConfiguration(new File("plugins/MobFight", "config.yml"));
+=======
+		System.out.println("[" + this.getDescription().getName() + "] Enabled!");
+		
+		//make config.yml
+		File conf = makeConfig(new File(getDataFolder(), "config.yml"));
+		if (conf.exists()) {
+			config = getConfiguration();
+>>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 			System.out.println("[" + this.getDescription().getName() + "] Config loaded successfully!");
 		} else {
 			System.out.println("[" + this.getDescription().getName() + "] Error loading config, disabling...");
 			willDisable = true;
 		}	
 		
+<<<<<<< HEAD
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Event.Type.PLAYER_INTERACT, new MobFightPlayerListener(), Priority.Normal, this);	
 		this.getCommand("MobFight").setExecutor(new MobFightCommands());	
@@ -62,6 +86,13 @@ public class MobFight extends JavaPlugin{
 			}
 		}, 120L, 120L);
 		
+=======
+		
+		PluginManager pm = this.getServer().getPluginManager();
+		pm.registerEvent(Event.Type.PLAYER_INTERACT, new MobFightPlayerListener(), Priority.Normal, this);	
+		this.getCommand("MobFight").setExecutor(new MobFightCommands());	
+		util.keepPlayersInArena(this);
+>>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
 		if(willDisable)
 			getServer().getPluginManager().disablePlugin(this);
 	}
@@ -99,4 +130,8 @@ public class MobFight extends JavaPlugin{
 		}
 		return file;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e9f7e1aed198fa61a637ef41a26d54400465817a
