@@ -1,5 +1,9 @@
 package me.patrickfreed.mobfight;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -63,12 +67,27 @@ public class Util {
 		}	
 		return false;
 	}
-	public static boolean contains(String[] args, String s){
-		for(int x = 0; x < args.length; x++){
-			if(args[x].contains(s)){
-				return true;
-			}
+
+	public void save(HashMap<String, HashMap<String, String>> map, String name){
+		try{
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("plugins/MobFight/Data/" + name + ".bin"));
+			oos.writeObject(map);
+			oos.flush();
+			oos.close();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static HashMap<String, HashMap<String, String>> load(String name){
+		try{
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("plugins/MobFight/Data/" + name + ".bin"));
+			Object result = ois.readObject();
+			return (HashMap<String, HashMap<String, String>>)result;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

@@ -6,6 +6,7 @@ import me.patrickfreed.mobfight.Util;
 public class List {
 	public static boolean run(String[] args, MobFightPlayer player){
 		player.sendMessage(Util.Games.values().toString());
+		player.sendMessage(Util.Arenas.values().toString());
 		return true;
 	}
 }

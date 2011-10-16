@@ -8,15 +8,15 @@ import java.util.List;
 
 import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
 
-import org.bukkit.Server;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.event.*;
 
 public class MobFight extends JavaPlugin{
 
@@ -27,27 +27,31 @@ public class MobFight extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		System.out.println("[" + this.getDescription().getName() + "] Disabled!");
+		util.save(Util.Arenas, "arenas");
 	}
 
 	@Override
 	public void onEnable() {
 		System.out.println("[" + this.getDescription().getName() + "] Enabled!");	
-		File conf = makeConfig(new File(getDataFolder(), "config.yml"));
-		if (conf.exists()) {
-			config = YamlConfiguration.loadConfiguration(new File("plugins/MobFight", "config.yml"));
-			System.out.println("[" + this.getDescription().getName() + "] Config loaded successfully!");
-		} else {
-			System.out.println("[" + this.getDescription().getName() + "] Error loading config, disabling...");
-			willDisable = true;
-		}	
-		
+		Util.Arenas = Util.load("arenas");
+/*		File conf = makeConfig(new File("plugins/MobFight", "config.yml"));
+/
+* 		if (conf.exists()) {
+*
+*			config = YamlConfiguration.loadConfiguration(new File("plugins/MobFight", "config.yml"));
+*			System.out.println("[" + this.getDescription().getName() + "] Config loaded successfully!");
+*		} else {
+*			System.out.println("[" + this.getDescription().getName() + "] Error loading config, disabling...");
+*			willDisable = true;
+*		}	
+*/		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Event.Type.PLAYER_INTERACT, new MobFightPlayerListener(), Priority.Normal, this);	
 		this.getCommand("MobFight").setExecutor(new MobFightCommands());	
-		final Server server = this.getServer();
+
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
-				for (World world : server.getWorlds()){
+				for (World world : Bukkit.getServer().getWorlds()){
 					for (Entity entity : world.getEntities()){
 						if ((entity instanceof Player)){
 							MobFightPlayer player = new MobFightPlayer((Player)entity);
@@ -60,7 +64,7 @@ public class MobFight extends JavaPlugin{
 					}
 				}
 			}
-		}, 120L, 120L);
+		}, 80L, 80L);
 		
 		if(willDisable)
 			getServer().getPluginManager().disablePlugin(this);
@@ -71,6 +75,7 @@ public class MobFight extends JavaPlugin{
 	 * @param file
 	 * @return File
 	 */
+	@SuppressWarnings("unused")
 	private File makeConfig(File file) {
 		if (!file.exists()) {
 			System.out.println("[" + this.getDescription().getName() + "] Generating config...");

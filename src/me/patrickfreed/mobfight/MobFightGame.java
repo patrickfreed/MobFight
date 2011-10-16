@@ -10,10 +10,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class MobFightGame {
+	
 	private String name;
+	
 	public MobFightGame(String name){
 		this.name = name;
 	}
+	
 	public String getName(){
 		return this.name;
 	}
@@ -22,19 +25,19 @@ public class MobFightGame {
 	public File getFile(){
 		return new File("plugins/MobFight/Data/Games/", name + ".yml");
 	}
+	
 	public HashMap<String, String> getOptions(){
-		return Util.Games.get(name);
-	}
-	public boolean exists(){
-		if (getFile().exists()){
-			return true;
+			return Util.Games.get(name);
 		}
-		return false;
+	
+	public boolean exists(){
+		return Util.Games.containsKey(getName());
 	}
+	
 	public void end(){
 		HashMap<String,String> gamedata = this.getOptions();
-		int team1score = Integer.parseInt(gamedata.get("Team1Score"));
-		int team2score = Integer.parseInt(gamedata.get("Team2Score"));
+		int team1score = Integer.parseInt(gamedata.get("Team1.Score"));
+		int team2score = Integer.parseInt(gamedata.get("Team2.Score"));
 
 		if(team1score > team2score){
 			MobFight m = new MobFight();
@@ -102,6 +105,7 @@ public class MobFightGame {
 		}
 	}
 	@Deprecated
+	
 	public String getTeamNumber(String team){
 		HashMap<String, String> data = this.getOptions();
 		if(data.get("Team1Name").equalsIgnoreCase(team)){
@@ -120,6 +124,5 @@ public class MobFightGame {
 	public void delete(){
 		Util.Games.remove(getName());
 		Util.Teams.remove(getName());
-	}
-	
+	}	
 }

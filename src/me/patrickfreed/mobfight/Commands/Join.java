@@ -24,10 +24,6 @@ public class Join {
 				
 				if (game.exists()){
 					HashMap<String, HashMap<String, String>> playerdata = Util.dataPlayer;
-					HashMap<String, String> gamedata = game.getOptions();
-					
-					//Let's see if the player is on the list
-					
 					if (!player.isPlaying()){
 						int Team1Players = Util.Teams.get(game.getName()).get("Team1").size();
 						int Team2Players = Util.Teams.get(game.getName()).get("Team2").size();
@@ -37,16 +33,16 @@ public class Join {
 							Team = "Team1";
 						}else if ((Team1Players != 0 && Team2Players != 0) && Team1Players < Team2Players){
 							Team = "Team2";
-						}else
-							Team = "Team1";
+						}
+						
 						if(!util.isMob(mob)){
 							player.sendMessage(ChatColor.RED + "That is not an eligible mob!");
 							return true;
 						}
 
-						double x = Double.valueOf(gamedata.get(Team + ".Location.x"));
-						double y = Double.valueOf(gamedata.get(Team + ".Location.y"));
-						double z = Double.valueOf(gamedata.get(Team + ".Location.z"));
+						double x = Double.valueOf(game.getArena().getOptions().get(Team + ".Location.x"));
+						double y = Double.valueOf(game.getArena().getOptions().get(Team + ".Location.y"));
+						double z = Double.valueOf(game.getArena().getOptions().get(Team + ".Location.z"));
 						Location location = new Location(player.getCraftPlayer().getWorld(), x,y,z);
 						
 						player.getCraftPlayer().teleport(location);
@@ -58,18 +54,23 @@ public class Join {
 						
 						//TODO add max player setting and Economy support
 						
+						playerdata.put(player.getName(), new HashMap<String, String>());
 						playerdata.get(player.getName()).put("Mob", mob);
 						playerdata.get(player.getName()).put("Game", game.getName());
 						playerdata.get(player.getName()).put("Team", Team);
 						player.getCraftPlayer().sendMessage(ChatColor.GREEN + "[MobFight]" + ChatColor.YELLOW + " Disguised as " + mob + " and fighting for team '" + Team.substring(4) + "'!");
 						
+						return true;
+						
 					}else{
 						player.sendMessage(ChatColor.RED + " You are already in game '" + playerdata.get(player.getName()).get("Game") + "'.");						
+						return true;
 					}
 				}
 			}
 		}else{
 			player.sendMessage(util.noPermission());
+			return true;
 		}
 		return false;
 	}

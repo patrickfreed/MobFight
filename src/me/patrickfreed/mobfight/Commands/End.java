@@ -12,6 +12,7 @@ public class End {
 			if (player.hasPermission("mobfight.*")){
 				if(game.exists()){
 					game.end();
+					player.sendMessage("Started a new game in arena '" + game.getArena().getName() +"'!");
 					return true;
 				}else{
 					player.sendMessage("That game does not exist!");

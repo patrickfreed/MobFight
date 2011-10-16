@@ -13,7 +13,7 @@ public class Setspawn {
 	public static boolean run(String args[], MobFightPlayer player){
 		Util util = new Util();
 		MobFightArena arena = new MobFightArena(args[1]);
-		if(args.length == 2){ 
+		if(args.length == 3){ 
 			if (player.hasPermission("mobfight.admin")){
 				String team = args[2];
 				Location location = player.getCraftPlayer().getLocation();	

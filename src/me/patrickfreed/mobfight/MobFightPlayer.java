@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 public class MobFightPlayer {
 	private Player player;
 	private HashMap<String, HashMap<String, String>> playerdata = Util.dataPlayer;
+	
 	public MobFightPlayer(Player p){
 		this.player = p;
 	}
@@ -42,16 +43,7 @@ public class MobFightPlayer {
 			}
 		return false;
 	}
-	@Deprecated
-	public boolean isLeader(MobFightGame game){
-		HashMap<String, String> gameconfig = game.getOptions();
-		if(game.exists()){
-			if (Util.contains(gameconfig.get("Leaders").split(":"), player.getName())){
-				return true;
-			}
-		}
-		return false;
-	}
+
 	public Player getCraftPlayer(){
 		return player;
 	}
@@ -74,6 +66,7 @@ public class MobFightPlayer {
 		
 		MobFightArena arena = getGame().getArena();
 		Location firstCorner = arena.getCorner(1);
+		
 		int fX = firstCorner.getBlockX();
 		int fY = firstCorner.getBlockY();
 		int fZ = firstCorner.getBlockZ();
@@ -100,5 +93,30 @@ public class MobFightPlayer {
 
 		player.teleport(game.getArena().getWarpLocation());
 		playerdata.remove(getName());	
+		
+		sendMessage("You have been kicked from the game!");
 	}
+	public void kick(String reason){
+		MobFightGame game = getGame();
+		List<String> playerlist = Util.Teams.get(getGame().getName()).get(getTeam());
+
+		if(playerlist.contains(getName()))
+			playerlist.remove(getName());
+
+		Util.Teams.get(getGame().getName()).put(getTeam(), playerlist);
+
+		player.teleport(game.getArena().getWarpLocation());
+		playerdata.remove(getName());	
+		
+		sendMessage(reason);
+	}
+	
+	public HashMap<String, String> getOptions(){
+		return Util.dataPlayer.get(getName());
+	}
+	
+	public String getMob(){
+		return getOptions().get("Mob");
+	}
+
 }

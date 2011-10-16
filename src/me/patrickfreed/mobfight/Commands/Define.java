@@ -17,6 +17,7 @@ public class Define {
 		BlockVector block1 = MobFightPlayerListener.block1;
 		BlockVector block2 = MobFightPlayerListener.block2;
 		World world = MobFightPlayerListener.world;
+		System.out.println(arenadata);
 		if (args.length == 2){
 			if (player.hasPermission("mobfight.*")){
 				if (util.areSet()){
@@ -34,6 +35,10 @@ public class Define {
 								arenadata.get(args[1]).put("Warp.y", Double.toString(player.getCraftPlayer().getLocation().getY()));
 								arenadata.get(args[1]).put("Warp.z", Double.toString(player.getCraftPlayer().getLocation().getZ()));
 								
+								System.out.println("d");
+								System.out.println("x" + arenadata.get(args[1]).get("Warp.x"));
+								System.out.println("y" + arenadata.get(args[1]).get("Warp.y"));
+								System.out.println("z" + arenadata.get(args[1]).get("Warp.z"));
 								player.sendMessage("You successfully created arena '" + args[1] + "'!");	
 								return true;
 						}else{
