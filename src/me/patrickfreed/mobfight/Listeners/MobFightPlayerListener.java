@@ -1,4 +1,4 @@
-package me.patrickfreed.mobfight.Listeners;
+package me.patrickfreed.mobfight.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

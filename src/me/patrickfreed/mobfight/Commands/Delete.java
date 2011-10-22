@@ -1,4 +1,4 @@
-package me.patrickfreed.mobfight.Commands;
+package me.patrickfreed.mobfight.commands;
 
 import me.patrickfreed.mobfight.MobFightGame;
 import me.patrickfreed.mobfight.MobFightPlayer;

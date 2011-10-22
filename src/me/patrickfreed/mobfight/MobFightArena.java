@@ -23,7 +23,7 @@ public class MobFightArena {
 	}
 
 	public boolean isInGame(){
-		return getGame() != null;
+		return arenas.get(getName()).get("Game") != null;
 	}
 
 	public Location getWarpLocation(){
@@ -55,7 +55,7 @@ public class MobFightArena {
 		}		
 
 	public boolean isReady(){
-		return getOptions().get("Team1.Location.x") != null && getOptions().get("Team2.Location.x") != null;
+		return getOptions().get("Red.Location.x") != null && getOptions().get("Blu.Location.x") != null;
 	}
 
 }

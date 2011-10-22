@@ -1,4 +1,4 @@
-package me.patrickfreed.mobfight.Commands;
+package me.patrickfreed.mobfight.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +32,9 @@ public class Creategame {
 					player.sendMessage(ChatColor.RED + "Arena '" + arena + "' does not exist!");
 					return true;
 				}
-				else if(!arena.isReady()){
-					player.sendMessage(ChatColor.RED + "Arena '" + arena + "' does not have spawn points set!");
-				}
+//				else if(!arena.isReady()){
+//					player.sendMessage(ChatColor.RED + "Arena '" + arena + "' does not have spawn points set!");
+//				}
 				else if(arena.isInGame()){
 					player.sendMessage(ChatColor.RED + "Arena '" + arena + "' is already in a game!");
 				}

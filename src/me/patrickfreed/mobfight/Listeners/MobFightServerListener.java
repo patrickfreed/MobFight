@@ -1,4 +1,4 @@
-package me.patrickfreed.mobfight.Listeners;
+package me.patrickfreed.mobfight.listeners;
 
 import me.patrickfreed.mobfight.Util;
 

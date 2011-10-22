@@ -1,15 +1,15 @@
 package me.patrickfreed.mobfight;
 
-import me.patrickfreed.mobfight.Commands.Creategame;
-import me.patrickfreed.mobfight.Commands.Define;
-import me.patrickfreed.mobfight.Commands.Delete;
-import me.patrickfreed.mobfight.Commands.End;
-import me.patrickfreed.mobfight.Commands.Join;
-import me.patrickfreed.mobfight.Commands.Leave;
-import me.patrickfreed.mobfight.Commands.List;
-import me.patrickfreed.mobfight.Commands.Removeplayer;
-import me.patrickfreed.mobfight.Commands.Setspawn;
-import me.patrickfreed.mobfight.Commands.Setwarp;
+import me.patrickfreed.mobfight.commands.Creategame;
+import me.patrickfreed.mobfight.commands.Define;
+import me.patrickfreed.mobfight.commands.Delete;
+import me.patrickfreed.mobfight.commands.End;
+import me.patrickfreed.mobfight.commands.Join;
+import me.patrickfreed.mobfight.commands.Leave;
+import me.patrickfreed.mobfight.commands.List;
+import me.patrickfreed.mobfight.commands.Removeplayer;
+import me.patrickfreed.mobfight.commands.Setspawn;
+import me.patrickfreed.mobfight.commands.Setwarp;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

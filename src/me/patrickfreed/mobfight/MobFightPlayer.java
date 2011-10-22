@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.desmin88.mobdisguise.api.MobDisguiseAPI;
-import me.patrickfreed.mobfight.Mobs.MobFightMob;
-import me.patrickfreed.mobfight.Mobs.MobFightPig;
+import me.patrickfreed.mobfight.mobs.MobFightMob;
+import me.patrickfreed.mobfight.mobs.MobFightPig;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -124,6 +124,9 @@ public class MobFightPlayer {
 	}
 
 	public void setMob(String mob){
+		if(new MobFightPig(getName()) instanceof MobFightMob)
+			Bukkit.getServer().broadcastMessage("It is an instanceof");
+		
 		if(mob.equalsIgnoreCase("pig")){
 			MobFightPig pig = new MobFightPig(this);
 			getCraftPlayer().setHealth(pig.getFullHealth());	
@@ -133,6 +136,7 @@ public class MobFightPlayer {
 		}
 		//TODO Add rest of mobs
 		
+		Util.dataPlayer.put(getName(), new HashMap<String, String>());
 		getOptions().put("Mob", mob);
 		MobDisguiseAPI.disguisePlayer(getCraftPlayer(), mob);
 	}

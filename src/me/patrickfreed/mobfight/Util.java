@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
-import me.patrickfreed.mobfight.Mobs.MobFightMob;
-import me.patrickfreed.mobfight.Mobs.MobFightPig;
+import me.patrickfreed.mobfight.listeners.MobFightPlayerListener;
+import me.patrickfreed.mobfight.mobs.MobFightMob;
+import me.patrickfreed.mobfight.mobs.MobFightPig;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -97,7 +97,7 @@ public class Util {
 		System.out.println(ChatColor.GREEN + "[MobFight] " + message);
 	}
 
-	public static MobFightMob getType(String s){
+	public static MobFightMob getType(String s){	
 		return new MobFightPig("");
 		//TODO add rest of things
 	}

@@ -1,10 +1,10 @@
-package me.patrickfreed.mobfight.Commands;
+package me.patrickfreed.mobfight.commands;
 
 import java.util.HashMap;
 
 import me.patrickfreed.mobfight.MobFightPlayer;
 import me.patrickfreed.mobfight.Util;
-import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
+import me.patrickfreed.mobfight.listeners.MobFightPlayerListener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;

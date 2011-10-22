@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
-import me.patrickfreed.mobfight.Listeners.MobFightServerListener;
+import me.patrickfreed.mobfight.listeners.MobFightPlayerListener;
+import me.patrickfreed.mobfight.listeners.MobFightServerListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
