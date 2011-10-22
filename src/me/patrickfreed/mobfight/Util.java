@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
+import me.patrickfreed.mobfight.Mobs.MobFightMob;
+import me.patrickfreed.mobfight.Mobs.MobFightPig;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -89,5 +91,14 @@ public class Util {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static void print(String message){
+		System.out.println(ChatColor.GREEN + "[MobFight] " + message);
+	}
+
+	public static MobFightMob getType(String s){
+		return new MobFightPig("");
+		//TODO add rest of things
 	}
 }

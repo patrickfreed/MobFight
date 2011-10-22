@@ -47,10 +47,15 @@ public class MobFightArena {
 	}
 
 	public boolean exists() {	
-		return Util.Arenas.containsKey(getName());
+		return arenas.containsKey(getName());
 	}
 
 	public HashMap<String, String> getOptions(){
-			return Util.Arenas.get(getName());
+			return arenas.get(getName());
 		}		
+
+	public boolean isReady(){
+		return getOptions().get("Team1.Location.x") != null && getOptions().get("Team2.Location.x") != null;
+	}
+
 }

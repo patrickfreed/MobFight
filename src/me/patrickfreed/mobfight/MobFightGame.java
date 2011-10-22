@@ -1,126 +1,122 @@
 package me.patrickfreed.mobfight;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.nijikokun.register.payment.Methods;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class MobFightGame {
-	
+
 	private String name;
-	
+
 	public MobFightGame(String name){
 		this.name = name;
 	}
-	
+
 	public String getName(){
 		return this.name;
 	}
-	
-	@Deprecated
-	public File getFile(){
-		return new File("plugins/MobFight/Data/Games/", name + ".yml");
-	}
-	
+
 	public HashMap<String, String> getOptions(){
-			return Util.Games.get(name);
-		}
-	
+		return Util.Games.get(name);
+	}
+
 	public boolean exists(){
 		return Util.Games.containsKey(getName());
 	}
-	
+
 	public void end(){
 		HashMap<String,String> gamedata = this.getOptions();
-		int team1score = Integer.parseInt(gamedata.get("Team1.Score"));
-		int team2score = Integer.parseInt(gamedata.get("Team2.Score"));
+		int scoreRed = Integer.parseInt(gamedata.get("Red.Score"));
+		int scoreBlue = Integer.parseInt(gamedata.get("Blu.Score"));
+		String strWinner = null, strLoser = null;
 
-		if(team1score > team2score){
-			MobFight m = new MobFight();
-			 
-			List<String> winners = Util.Teams.get(getName()).get("Team1");
-			List<String> losers = Util.Teams.get(getName()).get("Team2");
-			
-			for (int x = 0; x < winners.toArray().length; x++){
-				MobFightPlayer player = new MobFightPlayer(m.getServer().getPlayer(winners.get(x)));
-				if(gamedata.containsKey("Money")){
-					//TODO Add register/economy support
-					player.sendMessage("Congratulations! You won the game! You receive " + gamedata.get("Money"));
-				}else{
-					player.sendMessage(ChatColor.AQUA + "Congratulations! You won the game!");
-					player.getCraftPlayer().teleport(getArena().getWarpLocation());
-				}
-			}
-			for (int x = 0; x < losers.toArray().length; x++){
-				Player player = m.getServer().getPlayer(losers.get(x));
-				if(gamedata.containsKey("Money")){
-					//TODO Add register/economy support
-					player.sendMessage(ChatColor.RED + "You lost the game! You lose " + gamedata.get("Money"));
-				}else{
-					player.sendMessage(ChatColor.RED + "You lost the game!");
-					player.teleport(getArena().getWarpLocation());
-				}
-			}
-			List<String> listEmpty = new ArrayList<String>();
-			Util.Teams.get(getName()).put("Team1", listEmpty);
-			Util.Teams.get(getName()).put("Team2", listEmpty);
-			gamedata.put("Score", gamedata.get("DefaultScore"));
-			gamedata.put("Team1Score", "0");
-			gamedata.put("Team2Score", "0");
+		if(scoreRed > scoreBlue){
+			strWinner = "Red";
+			strLoser = "Blu";
 		}
-		else if(team2score > team1score){
-			List<String> winners = Util.Teams.get(getName()).get("Team2");
-			List<String> losers = Util.Teams.get(getName()).get("Team1");
-			
-			for (int x = 0; x < winners.toArray().length; x++){
-				MobFightPlayer player = new MobFightPlayer(Bukkit.getServer().getPlayer(winners.get(x)));
+		else if(scoreBlue > scoreRed){
+			strWinner = "Blu";
+			strLoser = "Red";
+		}else{
+			List<String> playersRed = Util.Teams.get(getName()).get("Red");
+			List<String> playersBlu = Util.Teams.get(getName()).get("Blu");
+
+			for (int x = 0; x < playersRed.size(); x++){
+				MobFightPlayer player = new MobFightPlayer(Bukkit.getServer().getPlayer(playersRed.get(x)));
 				if(gamedata.containsKey("Money")){
-					//TODO Add register/economy support
+					Methods.getMethod().getAccount(playersRed.get(x)).add(Double.valueOf(gamedata.get("Money")) * 2);
 					player.sendMessage("Congratulations! You won the game! You receive " + gamedata.get("Money"));
 				}else{
 					player.sendMessage(ChatColor.AQUA + "Congratulations! You won the game!");
 					player.getCraftPlayer().teleport(getArena().getWarpLocation());
 				}
+			
 			}
-			for (int x = 0; x < losers.toArray().length; x++){
-				Player player = Bukkit.getServer().getPlayer(losers.get(x));
+
+			for (int x = 0; x < playersBlu.size(); x++){
+				MobFightPlayer player = new MobFightPlayer(Bukkit.getServer().getPlayer(playersBlu.get(x)));
 				if(gamedata.containsKey("Money")){
-					//TODO Add register/economy support
-					player.sendMessage(ChatColor.RED + "You lost the game! You lose " + gamedata.get("Money"));
+					Methods.getMethod().getAccount(playersRed.get(x)).add(Double.valueOf(gamedata.get("Money")) * 2);
+					player.sendMessage("Tie game!, here is your money back.");
 				}else{
-					player.sendMessage(ChatColor.RED + "You lost the game!");
-					player.teleport(getArena().getWarpLocation());
+					player.sendMessage(ChatColor.AQUA + "Tie Game! You're all losers!");
+					player.getCraftPlayer().teleport(getArena().getWarpLocation());
 				}
 			}
+			
 			List<String> listEmpty = new ArrayList<String>();
-			Util.Teams.get(getName()).put("Team1", listEmpty);
-			Util.Teams.get(getName()).put("Team2", listEmpty);
+			Util.Teams.get(getName()).put("Red", listEmpty);
+			Util.Teams.get(getName()).put("Blu", listEmpty);
 			gamedata.put("Score", gamedata.get("DefaultScore"));
-			gamedata.put("Team1Score", "0");
-			gamedata.put("Team2Score", "0");
+			gamedata.put("Red.Score", "0");
+			gamedata.put("Blu.Score", "0");
+			
+			return;
+		}
+		MobFight m = new MobFight();
+
+		List<String> winners = Util.Teams.get(getName()).get(strWinner);
+		List<String> losers = Util.Teams.get(getName()).get(strLoser);
+
+		for (int x = 0; x < winners.toArray().length; x++){
+			MobFightPlayer player = new MobFightPlayer(m.getServer().getPlayer(winners.get(x)));
+			if(gamedata.containsKey("Money")){
+				//TODO Add register/economy support
+				player.sendMessage("Congratulations! You won the game! You receive " + gamedata.get("Money"));
+			}else{
+				player.sendMessage(ChatColor.AQUA + "Congratulations! You won the game!");
+				player.getCraftPlayer().teleport(getArena().getWarpLocation());
+			}
+		}
+		for (int x = 0; x < losers.toArray().length; x++){
+			Player player = m.getServer().getPlayer(losers.get(x));
+			if(gamedata.containsKey("Money")){
+				//TODO Add register/economy support
+				player.sendMessage(ChatColor.RED + "You lost the game! You lose " + gamedata.get("Money"));
+			}else{
+				player.sendMessage(ChatColor.RED + "You lost the game!");
+				player.teleport(getArena().getWarpLocation());
+			}
+
+			List<String> listEmpty = new ArrayList<String>();
+			Util.Teams.get(getName()).put("Red", listEmpty);
+			Util.Teams.get(getName()).put("Blu", listEmpty);
+			gamedata.put("Score", gamedata.get("DefaultScore"));
+			gamedata.put("Red.Score", "0");
+			gamedata.put("Blu.Score", "0");
 		}
 	}
-	@Deprecated
-	
-	public String getTeamNumber(String team){
-		HashMap<String, String> data = this.getOptions();
-		if(data.get("Team1Name").equalsIgnoreCase(team)){
-			return "Team1";
-		}else if(data.get("Team2Name").equalsIgnoreCase(team)){
-			return "Team2";
-		}else{
-			return null;
-		}
-	} 
 
 	public MobFightArena getArena(){
 		return new MobFightArena(this.getOptions().get("Arena"));
 	}
-	
+
 	public void delete(){
 		Util.Games.remove(getName());
 		Util.Teams.remove(getName());

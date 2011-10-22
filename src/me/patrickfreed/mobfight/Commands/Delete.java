@@ -10,7 +10,7 @@ public class Delete {
 		Util util = new Util();
 		MobFightGame game = new MobFightGame(args[1]);
 		if (args.length == 2){
-			if(player.hasPermission("mobfight.*")){
+			if(player.hasPermission("mobfight.admin")){
 				if(game.exists()){
 					game.end();
 					game.delete();

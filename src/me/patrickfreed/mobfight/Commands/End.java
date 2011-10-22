@@ -9,7 +9,7 @@ public class End {
 		Util util = new Util();
 		MobFightGame game = new MobFightGame(args[1]);
 		if (args.length == 2){
-			if (player.hasPermission("mobfight.*")){
+			if (player.hasPermission("mobfight.admin")){
 				if(game.exists()){
 					game.end();
 					player.sendMessage("Started a new game in arena '" + game.getArena().getName() +"'!");

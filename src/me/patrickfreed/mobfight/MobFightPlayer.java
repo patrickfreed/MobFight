@@ -3,6 +3,10 @@ package me.patrickfreed.mobfight;
 import java.util.HashMap;
 import java.util.List;
 
+import me.desmin88.mobdisguise.api.MobDisguiseAPI;
+import me.patrickfreed.mobfight.Mobs.MobFightMob;
+import me.patrickfreed.mobfight.Mobs.MobFightPig;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -115,8 +119,30 @@ public class MobFightPlayer {
 		return Util.dataPlayer.get(getName());
 	}
 	
-	public String getMob(){
-		return getOptions().get("Mob");
+	public MobFightMob getMob(){
+		return new MobFightPig(this);
+	}
+
+	public void setMob(String mob){
+		if(mob.equalsIgnoreCase("pig")){
+			MobFightPig pig = new MobFightPig(this);
+			getCraftPlayer().setHealth(pig.getFullHealth());	
+		}else if(mob.equalsIgnoreCase("cow")){
+			MobFightPig pig = new MobFightPig(this);
+			getCraftPlayer().setHealth(pig.getFullHealth());
+		}
+		//TODO Add rest of mobs
+		
+		getOptions().put("Mob", mob);
+		MobDisguiseAPI.disguisePlayer(getCraftPlayer(), mob);
+	}
+
+	public int getHealth(){
+		return getCraftPlayer().getHealth();
+	}
+	
+	public void damage(int amount){
+		getCraftPlayer().damage((int)(amount*1.5));
 	}
 
 }

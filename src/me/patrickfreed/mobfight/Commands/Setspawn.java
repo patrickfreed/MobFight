@@ -17,7 +17,7 @@ public class Setspawn {
 			if (player.hasPermission("mobfight.admin")){
 				String team = args[2];
 				Location location = player.getCraftPlayer().getLocation();	
-				HashMap<String, String> data = Util.Arenas.get(arena.getName());
+				HashMap<String, String> data = arena.getOptions();
 				if (arena.exists()){
 					
 					double x = location.getX();

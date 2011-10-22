@@ -21,7 +21,7 @@ public class MobFightPlayerListener extends PlayerListener {
 		switch (event.getAction()) {
 		case RIGHT_CLICK_BLOCK: {
 			if(player.getCraftPlayer().getItemInHand().getType() == Material.BOOK){
-				if(player.hasPermission("mobfight.*")){
+				if(player.hasPermission("mobfight.admin")){
 					block2 = new BlockVector(block.getX(), block.getY(), block.getZ());
 					world = block.getWorld();
 					player.sendMessage(ChatColor.YELLOW + "Second point set.");
@@ -31,7 +31,7 @@ public class MobFightPlayerListener extends PlayerListener {
 		}//case end
 		case LEFT_CLICK_BLOCK: {
 			if(player.getCraftPlayer().getItemInHand().getType() == Material.BOOK){
-				if(player.hasPermission("mobfight.*")){
+				if(player.hasPermission("mobfight.admin")){
 					block1 = new BlockVector(block.getX(), block.getY(), block.getZ());
 					world = block.getWorld();
 					player.sendMessage(ChatColor.YELLOW + "First point set.");

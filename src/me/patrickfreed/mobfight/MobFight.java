@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import me.patrickfreed.mobfight.Listeners.MobFightPlayerListener;
+import me.patrickfreed.mobfight.Listeners.MobFightServerListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -47,6 +48,7 @@ public class MobFight extends JavaPlugin{
 */		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Event.Type.PLAYER_INTERACT, new MobFightPlayerListener(), Priority.Normal, this);	
+		pm.registerEvent(Event.Type.PLUGIN_ENABLE, new MobFightServerListener(), Priority.Normal, this);
 		this.getCommand("MobFight").setExecutor(new MobFightCommands());	
 
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {

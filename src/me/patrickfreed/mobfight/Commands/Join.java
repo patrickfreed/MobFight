@@ -3,13 +3,14 @@ package me.patrickfreed.mobfight.Commands;
 import java.util.HashMap;
 import java.util.List;
 
-import me.desmin88.mobdisguise.api.MobDisguiseAPI;
 import me.patrickfreed.mobfight.MobFightGame;
 import me.patrickfreed.mobfight.MobFightPlayer;
 import me.patrickfreed.mobfight.Util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+
+import com.nijikokun.register.payment.Methods;
 
 public class Join {
 	public static boolean run(String[]args, MobFightPlayer player){
@@ -25,14 +26,14 @@ public class Join {
 				if (game.exists()){
 					HashMap<String, HashMap<String, String>> playerdata = Util.dataPlayer;
 					if (!player.isPlaying()){
-						int Team1Players = Util.Teams.get(game.getName()).get("Team1").size();
-						int Team2Players = Util.Teams.get(game.getName()).get("Team2").size();
+						int playersRed = Util.Teams.get(game.getName()).get("Red").size();
+						int playersBlu = Util.Teams.get(game.getName()).get("Blu").size();
 
-						String Team = "Team1";
-						if ((Team1Players != 0 && Team2Players != 0) && Team1Players < Team2Players){
-							Team = "Team1";
-						}else if ((Team1Players != 0 && Team2Players != 0) && Team1Players < Team2Players){
-							Team = "Team2";
+						String Team = "Red";
+						if ((playersRed != 0 && playersBlu != 0) && playersRed < playersBlu){
+							Team = "Red";
+						}else if ((playersRed != 0 && playersBlu != 0) && playersRed < playersBlu){
+							Team = "Blu";
 						}
 						
 						if(!util.isMob(mob)){
@@ -46,19 +47,20 @@ public class Join {
 						Location location = new Location(player.getCraftPlayer().getWorld(), x,y,z);
 						
 						player.getCraftPlayer().teleport(location);
-						MobDisguiseAPI.disguisePlayer(player.getCraftPlayer(), mob.toLowerCase());
+						player.setMob(mob);
 						
 						List<String>playerslist = Util.Teams.get(game.getName()).get(Team);
 						playerslist.add(player.getName());
 						Util.Teams.get(game.getName()).put(Team, playerslist);
 						
-						//TODO add max player setting and Economy support
+						if(game.getOptions().get("Money") != null)
+							Methods.getMethod().getAccount(player.getName()).subtract(Double.valueOf(game.getOptions().get("Money")));
 						
 						playerdata.put(player.getName(), new HashMap<String, String>());
-						playerdata.get(player.getName()).put("Mob", mob);
+		
 						playerdata.get(player.getName()).put("Game", game.getName());
 						playerdata.get(player.getName()).put("Team", Team);
-						player.getCraftPlayer().sendMessage(ChatColor.GREEN + "[MobFight]" + ChatColor.YELLOW + " Disguised as " + mob + " and fighting for team '" + Team.substring(4) + "'!");
+						player.getCraftPlayer().sendMessage(ChatColor.GREEN + "[MobFight]" + ChatColor.YELLOW + " Disguised as " + mob + " and fighting for " + Team + "!");
 						
 						return true;
 						
