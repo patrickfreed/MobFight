@@ -12,7 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class MobFightPlayer {
+public class MobFightPlayer{
 	private Player player;
 	private HashMap<String, HashMap<String, String>> playerdata = Util.dataPlayer;
 	

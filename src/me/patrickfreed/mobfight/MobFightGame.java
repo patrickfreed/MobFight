@@ -121,4 +121,13 @@ public class MobFightGame {
 		Util.Games.remove(getName());
 		Util.Teams.remove(getName());
 	}	
+
+	public void sendDeathMessage(MobFightPlayer killer, MobFightPlayer victim){
+		List<String> bluList = Util.Teams.get(getName()).get("Blu");
+		for(int x = 0; x < bluList.size(); x++)
+			new MobFightPlayer(Bukkit.getPlayer(bluList.get(x))).sendMessage(ChatColor.BLUE + killer.getName() + " killed " + victim.getName());
+		for(int x = 0; x < bluList.size(); x++)
+			new MobFightPlayer(Bukkit.getPlayer(bluList.get(x))).sendMessage(ChatColor.BLUE + killer.getName() + " killed " + victim.getName());
+	}
+
 }

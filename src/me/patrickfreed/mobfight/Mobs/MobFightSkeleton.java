@@ -42,6 +42,8 @@ public class MobFightSkeleton implements MobFightMob {
 
 	@Override
 	public void normalAttack(MobFightPlayer victim) {
-		victim.damage(getStandardAttackDamage());	
+		victim.damage(getStandardAttackDamage());
+		if(victim.getCraftPlayer().isDead())
+			victim.getGame().sendDeathMessage(player, victim);
 	}
 }
