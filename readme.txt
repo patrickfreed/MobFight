@@ -4,12 +4,11 @@ By: PatrickFreed
 ====================
 General Description
 ====================
-Someone with gameleader permission types /mobfight create game game1 team1 team2 25 15.
-This starts a server wide game (no arenas, although if you wanted one, you could just
-build it so they can't get out) where players in that game can only hurt players on
-the apposing team. Now to join, they right click the signs to spawn to a location, set
-by /mobfight setspawn team1. They are tp'd there and transformed into the mob they
-have chosen. Each mobs have their own powers (see below). You get 1 point for each
+Someone with gameleader permission types /mobfight create game game1 25 15.
+This starts a server wide game where players in that game can only hurt players on
+the opposing team. Now, in order to join the game, they type /mobfight join <game>
+<mob> and are teleported to a team's spawn, setby /mobfight setspawn team1. 
+They are tp'd there and transformed into the mob they have chosen. Each mobs have their own powers (see below). You get 1 point for each
 kill and -1 for each suicide (configurable, see config below). When the score limit
 is reached, the game is ended and a new one starts with empty teams.
 
